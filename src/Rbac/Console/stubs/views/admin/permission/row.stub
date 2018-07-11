@@ -1,0 +1,1 @@
+@extends('rbac::admin.permission.row')

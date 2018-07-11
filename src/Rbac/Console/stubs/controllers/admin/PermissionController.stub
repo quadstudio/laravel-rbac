@@ -1,0 +1,13 @@
+<?php
+
+namespace {{namespace}}Http\Controllers\Admin;
+
+use QuadStudio\Rbac\Traits\Controllers\Admin\PermissionControllerTrait;
+use App\Http\Controllers\Controller;
+
+class PermissionController extends Controller
+{
+
+    use PermissionControllerTrait;
+
+}
