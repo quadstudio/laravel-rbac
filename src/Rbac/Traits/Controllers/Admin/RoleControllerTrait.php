@@ -110,9 +110,9 @@ trait RoleControllerTrait
         $this->roles->update($request->except('_token', '_method', '_stay', 'permissions'), $role->id);
         $role->syncPermissions($request->input('permissions', []));
         if ($request->input('_stay') == 1) {
-            $redirect = redirect()->route('admin.role.edit', $role)->with('success', trans('rbac::role.updated'));
+            $redirect = redirect()->route('admin.roles.edit', $role)->with('success', trans('rbac::role.updated'));
         } else {
-            $redirect = redirect()->route('admin.role.show', $role)->with('success', trans('rbac::role.updated'));
+            $redirect = redirect()->route('admin.roles.show', $role)->with('success', trans('rbac::role.updated'));
         }
 
         return $redirect;

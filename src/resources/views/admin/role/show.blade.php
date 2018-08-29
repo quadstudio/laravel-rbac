@@ -61,7 +61,7 @@
                                 @foreach($role->permissions as $permission)
                                     <tr>
                                         <td>
-                                            <a href="{{ route('admin.permissions.show', $permission) }}">{{ $permission->description }}</a>
+                                            <a href="{{ route('admin.permissions.show', $permission) }}">{{ $permission->title }}</a>
                                         </td>
                                     </tr>
                                 @endforeach

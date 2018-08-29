@@ -1,4 +1,4 @@
-@extends(':layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
@@ -81,7 +81,7 @@
                                     <input name="permissions[]" value="{{ $permission->id }}" type="checkbox"
                                            class="custom-control-input" id="permission-{{ $permission->id }}">
                                     <label class="custom-control-label"
-                                           for="permission-{{ $permission->id }}">{{ $permission->description }}</label>
+                                           for="permission-{{ $permission->id }}">{{ $permission->title }}</label>
                                 </div>
                             @endforeach
                         </div>
