@@ -91,7 +91,7 @@
                                            @endif
                                            class="custom-control-input" id="role-{{ $role->id }}">
                                     <label class="custom-control-label"
-                                           for="role-{{ $role->id }}">{{ $role->description }}</label>
+                                           for="role-{{ $role->id }}">{{ $role->title }}</label>
                                 </div>
                             @endforeach
                         </div>

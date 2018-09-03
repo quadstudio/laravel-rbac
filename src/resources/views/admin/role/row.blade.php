@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header" id="rbac-header-{{ $role->id }}">
         <h5 class="mb-0">
-            <a href="{{ route('admin.roles.show', $role) }}">{{ $role->description }} ({{ $role->title }})</a>
+            <a href="{{ route('admin.roles.show', $role) }}">{{ $role->title }}</a>
         </h5>
     </div>
 

@@ -69,7 +69,7 @@ trait RoleControllerTrait
         if ($request->input('_create') == 1) {
             $redirect = redirect()->back()->with('message', trans('rbac::role.created'));
         } else {
-            $redirect = redirect()->route('admin.role.index')->with('message', trans('rbac::role.created'));
+            $redirect = redirect()->route('admin.roles.index')->with('message', trans('rbac::role.created'));
         }
 
         return $redirect;

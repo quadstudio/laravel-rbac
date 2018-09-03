@@ -190,6 +190,14 @@ class RbacServiceProvider extends BaseServiceProvider
                 return "<?php endif; // Rbac::permission ?>";
             });
 
+            Blade::directive('notpermission', function ($permission) {
+                return "<?php if (!app('rbac')->hasPermission({$permission})) : ?>";
+            });
+
+            Blade::directive('endnotpermission', function () {
+                return "<?php endif; // Rbac::notpermission ?>";
+            });
+
             Blade::directive('ability', function ($ability) {
                 return "<?php if (app('rbac')->hasAbility({$ability})) : ?>";
             });
