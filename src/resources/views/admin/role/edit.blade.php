@@ -17,13 +17,12 @@
             </li>
             <li class="breadcrumb-item active">@lang('rbac::messages.edit')</li>
         </ol>
-        <h1 class="header-title m-t-0 m-b-20">@lang('rbac::messages.edit') @lang('rbac::role.role')</h1>
-        <hr/>
+        <h1 class="header-title mb-4">@lang('rbac::messages.edit') @lang('rbac::role.role')</h1>
 
         @include('rbac::admin.alert')
 
-        <div class="row mb-5">
-            <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
 
                 <form method="POST" action="{{ route('admin.roles.update', $role) }}">
 
@@ -43,7 +42,7 @@
                                     <strong>{{ $errors->first('name') }}</strong>
                                 </span>
                             @endif
-                            <small id="nameHelp" class="form-text text-info">
+                            <small id="nameHelp" class="form-text text-danger">
                                 @lang('rbac::role.help.name')
                             </small>
                         </div>
@@ -77,8 +76,6 @@
                         </div>
                     </div>
 
-                    <hr/>
-
                     <h4 class="mt-3">@lang('rbac::permission.permissions')</h4>
 
                     <div class="form-row">
@@ -96,15 +93,15 @@
                             @endforeach
                         </div>
                     </div>
-
+                    <hr/>
 
                     <div class="form-row">
                         <div class="col text-right">
-                            <button name="_stay" value="1" type="submit" class="btn btn-primary">
+                            <button name="_stay" value="1" type="submit" class="btn btn-ferroli">
                                 <i class="fa fa-check"></i>
                                 <span>@lang('rbac::messages.save_stay')</span>
                             </button>
-                            <button name="_stay" value="0" type="submit" class="btn btn-primary">
+                            <button name="_stay" value="0" type="submit" class="btn btn-ferroli">
                                 <i class="fa fa-check"></i>
                                 <span>@lang('rbac::messages.save')</span>
                             </button>

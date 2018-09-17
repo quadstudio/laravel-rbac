@@ -69,10 +69,36 @@ class Rbac
                 'prefix'     => 'admin',
             ],
                 function () use ($router) {
-                    $router->name('admin')->resource('/roles', 'RoleController')
+                    $router->name('admin')
+                        ->resource('/roles', 'RoleController')
                         ->middleware('permission:admin.roles');
-                    $router->name('admin')->resource('/permissions', 'PermissionController')
+
+                    $router->group(
+                        [
+                            'middleware' => ['permission:admin.roles'],
+                            'prefix'     => 'roles/{role}'
+                        ],
+                        function () use ($router) {
+                            $router->name('admin.roles.users')
+                                ->get('/users', 'RoleController@users');
+                        }
+                    );
+
+                    $router->name('admin')
+                        ->resource('/permissions', 'PermissionController')
                         ->middleware('permission:admin.permissions');
+
+                    $router->group(
+                        [
+                            'middleware' => ['permission:admin.permissions'],
+                            'prefix'     => 'permissions/{permission}'
+                        ],
+                        function () use ($router) {
+                            $router->name('admin.permissions.users')
+                                ->get('/users', 'PermissionController@users');
+                        }
+                    );
+
                 });
     }
 

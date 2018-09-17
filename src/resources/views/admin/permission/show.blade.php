@@ -14,79 +14,52 @@
             </li>
             <li class="breadcrumb-item active">{{ $permission->title }}</li>
         </ol>
-        <h1 class="header-title m-t-0 m-b-20">{{ $permission->title }}</h1>
-        <hr/>
+        <h1 class="header-title mb-4">{{ $permission->title }}</h1>
 
         @include('rbac::admin.alert')
 
-        <div class="row">
-            <div class="col mb-2">
-                <a href="{{ route('admin.permissions.edit', ['id' => $permission->id]) }}" class="btn btn-primary">
-                    <i class="fa fa-pencil"></i>
-                    <span>@lang('rbac::messages.edit')</span>
-                </a>
-                <a href="{{ route('admin.permissions.index') }}" class="btn btn-secondary">
-                    <i class="fa fa-reply"></i>
-                    <span>@lang('rbac::messages.back')</span>
-                </a>
-                <a href="{{ route('admin.roles.index') }}" class="btn btn-secondary">
-                    <i class="fa fa-bars"></i>
-                    <span>@lang('rbac::messages.open') @lang('rbac::role.list')</span>
-                </a>
-            </div>
+        <div class=" border p-3 mb-2">
+            <a href="{{ route('admin.permissions.edit', $permission) }}"
+               class="d-block d-sm-inline btn mr-0 mr-sm-1 mb-1 mb-sm-0 btn-ferroli">
+                <i class="fa fa-pencil"></i>
+                <span>@lang('site::messages.edit') @lang('rbac::permission.permission')</span>
+            </a>
+            <a href="{{ route('admin.permissions.users', $permission) }}"
+               class="d-block d-sm-inline btn mr-0 mr-sm-1 mb-1 mb-sm-0 btn-ferroli">
+                <i class="fa fa-@lang('site::user.icon')"></i>
+                <span>@lang('site::user.users') <span class="badge badge-light">{{$permission->users()->count()}}</span></span>
+            </a>
+            <a href="{{ route('admin.permissions.index') }}" class="d-block d-sm-inline btn btn-secondary">
+                <i class="fa fa-reply"></i>
+                <span>@lang('site::messages.back')</span>
+            </a>
         </div>
 
-        <div class="row">
-            <div class="col">
+        <div class="card mb-2">
+            <div class="card-body">
+                <dl class="row">
 
-                <table class="table table-sm table-bordered">
-                    <tbody>
-                    <tr>
-                        <td class="text-right"><b>@lang('rbac::permission.title')</b></td>
-                        <td>{{ $permission->title }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-right"><b>@lang('rbac::permission.name')</b></td>
-                        <td>{{ $permission->name }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-right"><b>@lang('rbac::permission.description')</b></td>
-                        <td>{{ $permission->description }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-right align-middle"><b>@lang('rbac::role.roles')</b></td>
-                        <td>
-                            <table class="table table-hover table-bordered table-sm">
-                                <tbody>
-                                @foreach($permission->roles as $role)
-                                    <tr>
-                                        <td>
-                                            <a href="{{ route('admin.roles.show', ['id' => $role->id]) }}">{{ $role->description }}</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-right align-middle"><b>@lang('rbac::user.users')</b></td>
-                        <td>
-                            <table class="table table-hover table-bordered table-sm">
-                                <tbody>
-                                @foreach ($permission->users()->pluck('name') as $user)
-                                    <tr>
-                                        <td>{{ $user }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                    <dt class="col-sm-4 text-left text-sm-right">@lang('rbac::permission.title')</dt>
+                    <dd class="col-sm-8">{{ $permission->title }}</dd>
+
+                    <dt class="col-sm-4 text-left text-sm-right">@lang('rbac::permission.name')</dt>
+                    <dd class="col-sm-8">{{ $permission->name }}</dd>
+
+                    <dt class="col-sm-4 text-left text-sm-right">@lang('rbac::permission.description')</dt>
+                    <dd class="col-sm-8">{{ $permission->description }}</dd>
+
+                    <dt class="col-sm-4 text-left text-sm-right">@lang('rbac::role.roles')</dt>
+                    <dd class="col-sm-8">
+                        <div class="list-group">
+                            @foreach($permission->roles as $role)
+                                <a href="{{route('admin.roles.show', $role)}}" class="p-1 list-group-item list-group-item-action">
+                                    {{$role->title}}
+                                </a>
+                            @endforeach
+                        </div>
+                    </dd>
+                </dl>
             </div>
         </div>
-
     </div>
 @endsection

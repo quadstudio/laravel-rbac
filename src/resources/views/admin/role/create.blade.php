@@ -14,7 +14,7 @@
             </li>
             <li class="breadcrumb-item active">@lang('rbac::messages.create')</li>
         </ol>
-        <h1 class="header-title m-t-0 m-b-20">@lang('rbac::messages.create') @lang('rbac::role.role')</h1>
+        <h1 class="header-title mb-4">@lang('rbac::messages.create') @lang('rbac::role.role')</h1>
         <hr/>
 
         @include('rbac::admin.alert')
@@ -90,11 +90,11 @@
 
                     <div class="form-row">
                         <div class="col text-right">
-                            <button name="_create" value="1" type="submit" class="btn btn-primary mb-1">
+                            <button name="_create" value="1" type="submit" class="btn btn-ferroli mb-1">
                                 <i class="fa fa-check"></i>
                                 <span>@lang('rbac::messages.save_create')</span>
                             </button>
-                            <button name="_create" value="0" type="submit" class="btn btn-primary mb-1">
+                            <button name="_create" value="0" type="submit" class="btn btn-ferroli mb-1">
                                 <i class="fa fa-check"></i>
                                 <span>@lang('rbac::messages.save')</span>
                             </button>

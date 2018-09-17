@@ -14,13 +14,14 @@
             </li>
             <li class="breadcrumb-item active">@lang('rbac::messages.create')</li>
         </ol>
-        <h1 class="header-title m-t-0 m-b-20">@lang('rbac::messages.create') @lang('rbac::permission.permission')</h1>
-        <hr/>
+        <h1 class="header-title mb-4">@lang('rbac::messages.create') @lang('rbac::permission.permission')</h1>
 
         @include('rbac::admin.alert')
 
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-12">
+
+
+        <div class="card mb-5">
+            <div class="card-body">
 
                 <form method="POST" action="{{ route('admin.permissions.store') }}">
 
@@ -38,7 +39,7 @@
                                     <strong>{{ $errors->first('name') }}</strong>
                                 </span>
                             @endif
-                            <small id="nameHelp" class="form-text text-info">
+                            <small id="nameHelp" class="form-text text-danger">
                                 @lang('rbac::permission.help.name')
                             </small>
                         </div>
@@ -81,20 +82,19 @@
                                     <input name="roles[]" value="{{ $role->id }}" type="checkbox"
                                            class="custom-control-input" id="role-{{ $role->id }}">
                                     <label class="custom-control-label"
-                                           for="role-{{ $role->id }}">{{ $role->description }}</label>
+                                           for="role-{{ $role->id }}">{{ $role->title }}</label>
                                 </div>
                             @endforeach
                         </div>
                     </div>
-
-
+                    <hr />
                     <div class="form-row">
                         <div class="col text-right">
-                            <button name="_create" value="1" type="submit" class="btn btn-primary mb-1">
+                            <button name="_create" value="1" type="submit" class="btn btn-ferroli mb-1">
                                 <i class="fa fa-check"></i>
                                 <span>@lang('rbac::messages.save_create')</span>
                             </button>
-                            <button name="_create" value="0" type="submit" class="btn btn-primary mb-1">
+                            <button name="_create" value="0" type="submit" class="btn btn-ferroli mb-1">
                                 <i class="fa fa-check"></i>
                                 <span>@lang('rbac::messages.save')</span>
                             </button>

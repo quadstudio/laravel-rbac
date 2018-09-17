@@ -2,29 +2,46 @@
 
 namespace QuadStudio\Rbac\Traits\Controllers\Admin;
 
-use QuadStudio\Rbac\Http\Requests\RoleRequest;
 use QuadStudio\Rbac\Filters\RolePermissionCountFilter;
 use QuadStudio\Rbac\Filters\RoleUserCountFilter;
+use QuadStudio\Rbac\Filters\RoleUserFilter;
+use QuadStudio\Rbac\Http\Requests\RoleRequest;
 use QuadStudio\Rbac\Models\Role;
 use QuadStudio\Rbac\Repositories\PermissionRepository;
 use QuadStudio\Rbac\Repositories\RoleRepository;
+use QuadStudio\Service\Site\Repositories\UserRepository;
 
 trait RoleControllerTrait
 {
-
+    /**
+     * @var PermissionRepository
+     */
     protected $permissions;
+    /**
+     * @var RoleRepository
+     */
     protected $roles;
+    /**
+     * @var UserRepository
+     */
+    private $users;
 
     /**
      * Create a new controller instance.
      *
-     * @param PermissionRepository $permissions
      * @param RoleRepository $roles
+     * @param PermissionRepository $permissions
+     * @param UserRepository $users
      */
-    public function __construct(RoleRepository $roles, PermissionRepository $permissions)
+    public function __construct(
+        RoleRepository $roles,
+        PermissionRepository $permissions,
+        UserRepository $users
+    )
     {
         $this->permissions = $permissions;
         $this->roles = $roles;
+        $this->users = $users;
     }
 
     /**
@@ -40,7 +57,7 @@ trait RoleControllerTrait
 
         return view('rbac::admin.role.index', [
             'repository' => $this->roles,
-            'items'      => $this->roles->paginate(config('rbac.per_page.role', 50))
+            'roles'      => $this->roles->all()
         ]);
     }
 
@@ -74,6 +91,7 @@ trait RoleControllerTrait
 
         return $redirect;
     }
+
     /**
      * Display the specified resource.
      *
@@ -84,6 +102,18 @@ trait RoleControllerTrait
     {
         return view('rbac::admin.role.show', ['role' => $role]);
     }
+
+    public function users(Role $role)
+    {
+        $repository = $this->users;
+        $users = $this->users
+            ->trackFilter()
+            ->applyFilter((new RoleUserFilter())->setRole($role))
+            ->paginate(config('site.per_page.user', 10));
+
+        return view('rbac::admin.role.users.index', compact('role', 'users', 'repository'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -94,9 +124,10 @@ trait RoleControllerTrait
     {
         return view('rbac::admin.role.edit', [
             'permissions' => $this->permissions,
-            'role'  => $role
+            'role'        => $role
         ]);
     }
+
     /**
      * Update the specified resource in storage.
      *

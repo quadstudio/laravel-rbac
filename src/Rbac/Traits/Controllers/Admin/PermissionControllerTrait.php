@@ -3,27 +3,45 @@
 namespace QuadStudio\Rbac\Traits\Controllers\Admin;
 
 use QuadStudio\Rbac\Filters\PermissionSortFilter;
+use QuadStudio\Rbac\Filters\PermissionUserFilter;
+use QuadStudio\Rbac\Filters\PermissionUserSearchFilter;
 use QuadStudio\Rbac\Http\Requests\PermissionRequest;
 use QuadStudio\Rbac\Models\Permission;
 use QuadStudio\Rbac\Repositories\PermissionRepository;
 use QuadStudio\Rbac\Repositories\RoleRepository;
+use QuadStudio\Service\Site\Repositories\UserRepository;
 
 trait PermissionControllerTrait
 {
-
+    /**
+     * @var PermissionRepository
+     */
     protected $permissions;
+    /**
+     * @var RoleRepository
+     */
     protected $roles;
+    /**
+     * @var UserRepository
+     */
+    private $users;
 
     /**
      * Create a new controller instance.
      *
      * @param PermissionRepository $permissions
      * @param RoleRepository $roles
+     * @param UserRepository $users
      */
-    public function __construct(PermissionRepository $permissions, RoleRepository $roles)
+    public function __construct(
+        PermissionRepository $permissions,
+        RoleRepository $roles,
+        UserRepository $users
+    )
     {
         $this->permissions = $permissions;
         $this->roles = $roles;
+        $this->users = $users;
     }
 
     /**
@@ -38,8 +56,8 @@ trait PermissionControllerTrait
         $this->permissions->pushFilter(new PermissionSortFilter());
 
         return view('rbac::admin.permission.index', [
-            'repository' => $this->permissions,
-            'items'      => $this->permissions->paginate(config('rbac.per_page.permission', 50))
+            'repository'  => $this->permissions,
+            'permissions' => $this->permissions->all()
         ]);
     }
 
@@ -82,7 +100,18 @@ trait PermissionControllerTrait
      */
     public function show(Permission $permission)
     {
-        return view('rbac::admin.permission.show', ['permission' => $permission]);
+        return view('rbac::admin.permission.show', compact('permission'));
+    }
+
+    public function users(Permission $permission)
+    {
+        $repository = $this->users;
+        $users = $this->users
+            ->trackFilter()
+            ->applyFilter((new PermissionUserFilter())->setPermission($permission))
+            ->paginate(config('site.per_page.user', 10));
+
+        return view('rbac::admin.permission.users.index', compact('permission', 'users', 'repository'));
     }
 
     /**
