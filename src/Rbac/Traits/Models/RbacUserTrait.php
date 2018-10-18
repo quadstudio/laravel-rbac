@@ -52,7 +52,7 @@ trait RbacUserTrait
         return cache()->remember($cacheKey, config('cache.ttl'), function () {
             return $this->belongsToMany(
                 Role::class,
-                env('DB_PREFIX', '') . 'role_user',
+                'role_user',
                 'user_id',
                 'role_id');
         });

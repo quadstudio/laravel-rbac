@@ -22,7 +22,7 @@ class PermissionRole extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = env('DB_PREFIX', '') . 'permission_role';
+        $this->table = 'permission_role';
     }
 
     public function permission()

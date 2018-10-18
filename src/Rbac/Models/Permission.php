@@ -24,7 +24,7 @@ class Permission extends Model implements PermissionInterface
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = env('DB_PREFIX', '') . 'permissions';
+        $this->table = 'permissions';
     }
 
     public function syncRoles($roles)
@@ -59,7 +59,7 @@ class Permission extends Model implements PermissionInterface
     {
         return $this->belongsToMany(
             Role::class,
-            env('DB_PREFIX', '') . 'permission_role',
+            'permission_role',
             'permission_id',
             'role_id'
         );

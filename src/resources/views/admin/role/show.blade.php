@@ -45,6 +45,8 @@
 
                     <dt class="col-sm-4 text-left text-sm-right">@lang('rbac::role.name')</dt>
                     <dd class="col-sm-8">{{ $role->name }}</dd>
+                    <dt class="col-sm-4 text-left text-sm-right">@lang('rbac::role.display')</dt>
+                    <dd class="col-sm-8">@bool(['bool' => $role->display])@endbool</dd>
 
                     <dt class="col-sm-4 text-left text-sm-right">@lang('rbac::role.description')</dt>
                     <dd class="col-sm-8">{{ $role->description }}</dd>

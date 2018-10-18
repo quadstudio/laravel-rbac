@@ -3,11 +3,11 @@
 namespace QuadStudio\Rbac\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use QuadStudio\Rbac\Traits\RoleUserTrait;
+use QuadStudio\Rbac\Traits\Models\RbacUserTrait;
 
 class RoleUser extends Model
 {
-    use RoleUserTrait;
+    use RbacUserTrait;
     protected $fillable = [
         'role_id', 'user_id'
     ];

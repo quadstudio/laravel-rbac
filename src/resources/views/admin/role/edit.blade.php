@@ -61,6 +61,36 @@
                             @endif
                         </div>
                     </div>
+                    <div class="form-row required">
+                        <div class="col mb-3">
+                            <label class="control-label d-block"
+                                   for="display">@lang('rbac::role.display')</label>
+                            <div class="custom-control custom-radio  custom-control-inline">
+                                <input class="custom-control-input
+                                                    {{$errors->has('display') ? ' is-invalid' : ''}}"
+                                       type="radio"
+                                       name="display"
+                                       required
+                                       @if(old('display', $role->display) == 1) checked @endif
+                                       id="display_1"
+                                       value="1">
+                                <label class="custom-control-label"
+                                       for="display_1">@lang('rbac::messages.yes')</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input class="custom-control-input
+                                                    {{$errors->has('display') ? ' is-invalid' : ''}}"
+                                       type="radio"
+                                       name="display"
+                                       required
+                                       @if(old('display', $role->display) == 0) checked @endif
+                                       id="display_0"
+                                       value="0">
+                                <label class="custom-control-label"
+                                       for="display_0">@lang('rbac::messages.no')</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-row">
                         <div class="col mb-3">
                             <label for="description">@lang('rbac::role.description')</label>

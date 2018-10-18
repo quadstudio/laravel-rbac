@@ -10,7 +10,7 @@ class Role extends Model implements RoleInterface
 {
 
     protected $fillable = [
-        'name', 'title', 'description'
+        'name', 'title', 'description', 'display'
     ];
 
     /**
@@ -24,7 +24,7 @@ class Role extends Model implements RoleInterface
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = env('DB_PREFIX', '') . 'roles';
+        $this->table ='roles';
     }
 
     /**
@@ -37,7 +37,7 @@ class Role extends Model implements RoleInterface
 
         return $this->belongsToMany(
             User::class,
-            env('DB_PREFIX', '') . 'role_user',
+            'role_user',
             'role_id',
             'user_id'
         );
@@ -97,7 +97,7 @@ class Role extends Model implements RoleInterface
     {
         return $this->belongsToMany(
             Permission::class,
-            env('DB_PREFIX', '') . 'permission_role',
+            'permission_role',
             'role_id',
             'permission_id'
         );
