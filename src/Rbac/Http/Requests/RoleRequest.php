@@ -31,18 +31,18 @@ class RoleRequest extends FormRequest
             }
             case 'POST': {
                 return [
-                    'name'        => 'required|alpha_dash|string|max:100|unique:roles',
-                    'title'       => 'required|string|max:255',
-                    'description' => 'max:255',
+                    'name'                  => 'required|alpha_dash|string|max:100|unique:roles',
+                    'title'                 => 'required|string|max:255',
+                    'description'           => 'max:255',
                 ];
             }
             case 'PUT':
             case 'PATCH': {
 
                 return [
-                    'name'        => 'required|alpha_dash|string|max:100|unique:roles,name,' . $this->route()->parameter('role')->id,
-                    'title'       => 'required|string|max:255',
-                    'description' => 'max:255',
+                    'name'                  => 'required|alpha_dash|string|max:100|unique:roles,name,' . $this->route()->parameter('role')->id,
+                    'title'                 => 'required|string|max:255',
+                    'description'           => 'max:255',
                 ];
             }
             default:
@@ -68,9 +68,9 @@ class RoleRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name'        => trans('rbac::role.name'),
-            'title'       => trans('rbac::role.title'),
-            'description' => trans('rbac::role.description'),
+            'name'                  => trans('rbac::role.name'),
+            'title'                 => trans('rbac::role.title'),
+            'description'           => trans('rbac::role.description'),
         ];
     }
 }

@@ -160,7 +160,7 @@ trait RbacUserTrait
      */
     public function hasRole($name)
     {
-        if (is_array($name)) {
+        if (is_array($name) && !empty($name)) {
             return !in_array(false, array_map(array($this, 'hasRole'), $name));
         } else {
             foreach ($this->roles()->get() as $role) {

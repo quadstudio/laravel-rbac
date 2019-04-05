@@ -87,21 +87,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="col mb-3">
-                            <label for="description">@lang('rbac::role.description')</label>
-                            <input type="text" name="description" id="description"
-                                   class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
-                                   placeholder="@lang('rbac::role.placeholder.description')"
-                                   value="{{ old('description') }}">
-                            @if ($errors->has('description'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('description') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-                    <hr />
+                    <hr/>
                     <h4 class=" mt-3" id="sc_info">@lang('rbac::permission.permissions')</h4>
 
                     <div class="form-row">

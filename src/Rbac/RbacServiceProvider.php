@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use QuadStudio\Rbac\Middleware\Ability;
 use QuadStudio\Rbac\Middleware\Permission;
 use QuadStudio\Rbac\Middleware\Role;
+use Illuminate\Support\Facades\Gate;
 
 class RbacServiceProvider extends BaseServiceProvider
 {
@@ -15,6 +16,10 @@ class RbacServiceProvider extends BaseServiceProvider
         'role'       => Role::class,
         'permission' => Permission::class,
         'ability'    => Ability::class
+    ];
+
+    protected $policies = [
+        Models\Role::class => Policies\RolePolicy::class,
     ];
 
     /**
@@ -110,6 +115,7 @@ class RbacServiceProvider extends BaseServiceProvider
         $this->loadViews();
 
         $this->extendBlade();
+        $this->registerPolicies();
 
     }
 
@@ -205,6 +211,18 @@ class RbacServiceProvider extends BaseServiceProvider
             Blade::directive('endability', function () {
                 return "<?php endif; // Rbac::ability ?>";
             });
+        }
+    }
+
+    /**
+     * Register the application's policies.
+     *
+     * @return void
+     */
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
         }
     }
 }

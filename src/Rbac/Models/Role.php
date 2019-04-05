@@ -4,6 +4,7 @@ namespace QuadStudio\Rbac\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use QuadStudio\Rbac\Contracts\RoleInterface;
+use QuadStudio\Service\Site\Models\AuthorizationRole;
 use QuadStudio\Service\Site\Models\User;
 
 class Role extends Model implements RoleInterface
@@ -148,6 +149,14 @@ class Role extends Model implements RoleInterface
             $permissions = [$permissions];
         }
         $this->permissions()->sync($permissions);
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function authorization_role()
+    {
+        return $this->hasOne(AuthorizationRole::class, 'role_id');
     }
 
 }
