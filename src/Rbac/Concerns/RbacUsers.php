@@ -1,16 +1,9 @@
 <?php
-/**
- * User RBAC Trait
- *
- * @license MIT
- * @package QuadStudio\Rbac
- */
-
-namespace QuadStudio\Rbac\Traits\Models;
+namespace QuadStudio\Rbac\Concerns;
 
 use QuadStudio\Rbac\Models\Role;
 
-trait RbacUserTrait
+trait RbacUsers
 {
     /**
      * Attach multiple roles to a user
@@ -156,12 +149,17 @@ trait RbacUserTrait
 
     /**
      * @param $name
+     * @param bool $strict
      * @return bool
      */
-    public function hasRole($name)
+    public function hasRole($name, $strict = true)
     {
         if (is_array($name) && !empty($name)) {
-            return !in_array(false, array_map(array($this, 'hasRole'), $name));
+            if($strict){
+                return !in_array(false, array_map(array($this, 'hasRole'), $name));
+            } else{
+                return in_array(true, array_map(array($this, 'hasRole'), $name));
+            }
         } else {
             foreach ($this->roles()->get() as $role) {
                 if ($role->name == $name) {

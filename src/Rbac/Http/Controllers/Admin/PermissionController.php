@@ -1,17 +1,17 @@
 <?php
 
-namespace QuadStudio\Rbac\Traits\Controllers\Admin;
+namespace QuadStudio\Rbac\Http\Controllers\Admin;
 
+use Illuminate\Routing\Controller;
 use QuadStudio\Rbac\Filters\PermissionSortFilter;
 use QuadStudio\Rbac\Filters\PermissionUserFilter;
-use QuadStudio\Rbac\Filters\PermissionUserSearchFilter;
 use QuadStudio\Rbac\Http\Requests\PermissionRequest;
 use QuadStudio\Rbac\Models\Permission;
 use QuadStudio\Rbac\Repositories\PermissionRepository;
 use QuadStudio\Rbac\Repositories\RoleRepository;
 use QuadStudio\Service\Site\Repositories\UserRepository;
 
-trait PermissionControllerTrait
+class PermissionController extends Controller
 {
     /**
      * @var PermissionRepository

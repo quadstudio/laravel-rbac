@@ -1,7 +1,8 @@
 <?php
 
-namespace QuadStudio\Rbac\Traits\Controllers\Admin;
+namespace QuadStudio\Rbac\Http\Controllers\Admin;
 
+use Illuminate\Routing\Controller;
 use QuadStudio\Rbac\Filters\RolePermissionCountFilter;
 use QuadStudio\Rbac\Filters\RoleUserCountFilter;
 use QuadStudio\Rbac\Filters\RoleUserFilter;
@@ -11,7 +12,7 @@ use QuadStudio\Rbac\Repositories\PermissionRepository;
 use QuadStudio\Rbac\Repositories\RoleRepository;
 use QuadStudio\Service\Site\Repositories\UserRepository;
 
-trait RoleControllerTrait
+class RoleController extends Controller
 {
     /**
      * @var PermissionRepository

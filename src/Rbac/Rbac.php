@@ -70,7 +70,7 @@ class Rbac
             ],
                 function () use ($router) {
                     $router->name('admin')
-                        ->resource('/roles', 'RoleController')
+                        ->resource('/roles', '\QuadStudio\Rbac\Http\Controllers\Admin\RoleController')
                         ->middleware('permission:admin.roles');
 
                     $router->group(
@@ -80,12 +80,12 @@ class Rbac
                         ],
                         function () use ($router) {
                             $router->name('admin.roles.users')
-                                ->get('/users', 'RoleController@users');
+                                ->get('/users', '\QuadStudio\Rbac\Http\Controllers\Admin\RoleController@users');
                         }
                     );
 
                     $router->name('admin')
-                        ->resource('/permissions', 'PermissionController')
+                        ->resource('/permissions', '\QuadStudio\Rbac\Http\Controllers\Admin\PermissionController')
                         ->middleware('permission:admin.permissions');
 
                     $router->group(
@@ -95,7 +95,7 @@ class Rbac
                         ],
                         function () use ($router) {
                             $router->name('admin.permissions.users')
-                                ->get('/users', 'PermissionController@users');
+                                ->get('/users', '\QuadStudio\Rbac\Http\Controllers\Admin\PermissionController@users');
                         }
                     );
 
