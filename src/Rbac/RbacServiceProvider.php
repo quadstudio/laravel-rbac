@@ -3,19 +3,28 @@
 namespace QuadStudio\Rbac;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use QuadStudio\Rbac\Middleware\Ability;
 use QuadStudio\Rbac\Middleware\Permission;
 use QuadStudio\Rbac\Middleware\Role;
-use Illuminate\Support\Facades\Gate;
 
 class RbacServiceProvider extends BaseServiceProvider
 {
 
+    /**
+     * Пространсво имен для контроллеров пакета
+     *
+     * @var string
+     */
+    protected $namespace = 'QuadStudio\Rbac\Http\Controllers';
+
+
     protected $middleware = [
         'role'       => Role::class,
         'permission' => Permission::class,
-        'ability'    => Ability::class
+        'ability'    => Ability::class,
     ];
 
     protected $policies = [
@@ -116,6 +125,7 @@ class RbacServiceProvider extends BaseServiceProvider
 
         $this->extendBlade();
         $this->registerPolicies();
+        $this->loadWebRoutes();
 
     }
 
@@ -224,5 +234,12 @@ class RbacServiceProvider extends BaseServiceProvider
         foreach ($this->policies as $key => $value) {
             Gate::policy($key, $value);
         }
+    }
+
+    protected function loadWebRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group($this->packagePath('routes/web.php'));
     }
 }

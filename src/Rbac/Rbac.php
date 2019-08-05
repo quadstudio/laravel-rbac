@@ -56,51 +56,6 @@ class Rbac
         return $this->app->auth->user();
     }
 
-    /**
-     * Маршруты
-     */
-    public function routes()
-    {
-        ($router = $this->app->make('router'))
-            //->prefix('admin')
-            ->group([
-                'middleware' => ['auth', 'online'],
-                'namespace'  => 'Admin',
-                'prefix'     => 'admin',
-            ],
-                function () use ($router) {
-                    $router->name('admin')
-                        ->resource('/roles', '\QuadStudio\Rbac\Http\Controllers\Admin\RoleController')
-                        ->middleware('permission:admin.roles');
-
-                    $router->group(
-                        [
-                            'middleware' => ['permission:admin.roles'],
-                            'prefix'     => 'roles/{role}'
-                        ],
-                        function () use ($router) {
-                            $router->name('admin.roles.users')
-                                ->get('/users', '\QuadStudio\Rbac\Http\Controllers\Admin\RoleController@users');
-                        }
-                    );
-
-                    $router->name('admin')
-                        ->resource('/permissions', '\QuadStudio\Rbac\Http\Controllers\Admin\PermissionController')
-                        ->middleware('permission:admin.permissions');
-
-                    $router->group(
-                        [
-                            'middleware' => ['permission:admin.permissions'],
-                            'prefix'     => 'permissions/{permission}'
-                        ],
-                        function () use ($router) {
-                            $router->name('admin.permissions.users')
-                                ->get('/users', '\QuadStudio\Rbac\Http\Controllers\Admin\PermissionController@users');
-                        }
-                    );
-
-                });
-    }
 
     /**
      * Filters a route for a role or set of roles.
